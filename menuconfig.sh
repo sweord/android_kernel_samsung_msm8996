@@ -5,10 +5,12 @@
 RDIR=$(pwd)
 
 # directory containing cross-compile arm64 toolchain
-TOOLCHAIN=$HOME/build/toolchain/gcc-linaro-4.9-2016.02-x86_64_aarch64-linux-gnu
+#TOOLCHAIN=$HOME/build/toolchain/gcc-linaro-4.9-2016.02-x86_64_aarch64-linux-gnu
+TOOLCHAIN=/home/share/firefly/src/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
+
 
 export ARCH=arm64
-export CROSS_COMPILE=$TOOLCHAIN/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=$TOOLCHAIN/bin/aarch64-linux-android-
 
 [ "$1" ] && TARGET=$1
 [ "$TARGET" ] || TARGET=twrp

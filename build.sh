@@ -27,7 +27,7 @@ RDIR=$(pwd)
 VER=$(cat "$RDIR/VERSION")
 
 # directory containing cross-compile arm64 toolchain
-TOOLCHAIN=$HOME/build/toolchain/gcc-linaro-4.9-2016.02-x86_64_aarch64-linux-gnu
+TOOLCHAIN=/home/share/firefly/src/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9
 
 # amount of cpu threads to use in kernel make process
 THREADS=5
@@ -41,7 +41,7 @@ ABORT()
 }
 
 export ARCH=arm64
-export CROSS_COMPILE=$TOOLCHAIN/bin/aarch64-linux-gnu-
+export CROSS_COMPILE=$TOOLCHAIN/bin/aarch64-linux-android-
 
 [ -x "${CROSS_COMPILE}gcc" ] ||
 ABORT "Unable to find gcc cross-compiler at location: ${CROSS_COMPILE}gcc"
@@ -49,7 +49,7 @@ ABORT "Unable to find gcc cross-compiler at location: ${CROSS_COMPILE}gcc"
 [ "$TARGET" ] || TARGET=twrp
 [ "$1" ] && DEVICE=$1
 [ "$2" ] && VARIANT=$2
-[ "$DEVICE" ] || DEVICE=graceqlte
+[ "$DEVICE" ] || DEVICE=heroqlte
 [ "$VARIANT" ] || VARIANT=chnzc
 
 DEFCONFIG=${TARGET}_defconfig
@@ -61,7 +61,8 @@ ABORT "Config $DEFCONFIG not found in $ARCH configs!"
 [ -f "$RDIR/arch/$ARCH/configs/${DEVICE_DEFCONFIG}" ] ||
 ABORT "Device config $DEVICE_DEFCONFIG not found in $ARCH configs!"
 
-export LOCALVERSION=$TARGET-$DEVICE-$VARIANT-$VER
+#export LOCALVERSION=$TARGET-$DEVICE-$VARIANT-$VER
+export LOCALVERSION=TigerBro
 
 CLEAN_BUILD()
 {
@@ -99,3 +100,4 @@ BUILD_DTB()
 }
 
 CLEAN_BUILD && SETUP_BUILD && BUILD_KERNEL && BUILD_DTB && echo "Finished building $LOCALVERSION!"
+#SETUP_BUILD && BUILD_KERNEL && BUILD_DTB && echo "Finished building $LOCALVERSION!"
