@@ -609,6 +609,11 @@ static const struct option_blacklist_info sierra_mc73xx_blacklist = {
 };
 
 static const struct usb_device_id option_ids[] = {
+	//begin add by fj
+	{ USB_DEVICE(0x2020, 0x2033) },
+	{ USB_DEVICE(0x2020, 0x2040) },
+	//end add by fj
+
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_COLT) },
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA) },
 	{ USB_DEVICE(OPTION_VENDOR_ID, OPTION_PRODUCT_RICOLA_LIGHT) },
@@ -1853,6 +1858,15 @@ static int option_probe(struct usb_serial *serial,
 	struct usb_interface_descriptor *iface_desc =
 				&serial->interface->cur_altsetting->desc;
 	struct usb_device_descriptor *dev_desc = &serial->dev->descriptor;
+
+	//begin add by fj
+    // if ((serial->dev->descriptor.idVendor == 0x2020) &&
+    //     (serial->dev->descriptor.idProduct == 0x2033) &&
+    //     (serial->interface->cur_altsetting->desc.bInterfaceNumber == 4)) {
+    //     printk(KERN_INFO"BM800 Ethernet Adapter"); 
+    //     return -ENODEV; 
+    // }
+	//end add by fj
 
 	/* Never bind to the CD-Rom emulation interface	*/
 	if (iface_desc->bInterfaceClass == 0x08)

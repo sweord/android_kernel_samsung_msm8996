@@ -719,6 +719,15 @@ static int usb_serial_probe(struct usb_interface *interface,
 	int num_ports = 0;
 	int max_endpoints;
 
+	//begin add by fj
+	// if ((dev->descriptor.idVendor == 0x2020) && (dev->descriptor.idProduct == 0x2033) &&
+	// 	(interface->cur_altsetting->desc.bInterfaceNumber == 4))
+	// {
+	// 	printk(KERN_INFO"BM800 Ethernet Adapter ");
+	// 	return -ENODEV;
+	// }
+	//end add by fj
+
 	mutex_lock(&table_lock);
 	type = search_serial_device(interface);
 	if (!type) {
